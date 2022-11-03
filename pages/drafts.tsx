@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     drafts = await prisma.post.findMany({
       where: {
         author: { email: session.user.email },
-        published: false,
+        // published: false,
       },
       include: {
         author: {
