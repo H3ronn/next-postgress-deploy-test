@@ -4,6 +4,7 @@ import { useSession, getSession } from "next-auth/react";
 import Post from "../components/Post";
 import prisma from "../lib/prisma";
 import type Prisma from "@prisma/client";
+import Link from "next/link";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
@@ -53,9 +54,11 @@ const Drafts: React.FC<Props> = (props) => {
         <h1>My Drafts</h1>
         <main>
           {props.drafts.map((post) => (
-            <div key={post.id} className="post">
-              <Post post={post} />
-            </div>
+            <Link key={post.id} href={`/p/${post.id}`}>
+              <div className="post">
+                <Post post={post} />
+              </div>
+            </Link>
           ))}
         </main>
       </div>
@@ -63,6 +66,7 @@ const Drafts: React.FC<Props> = (props) => {
         .post {
           background: var(--geist-background);
           transition: box-shadow 0.1s ease-in;
+          margin: 20px 0;
         }
 
         .post:hover {
